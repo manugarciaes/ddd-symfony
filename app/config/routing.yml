@@ -1,5 +1,4 @@
-infrastructure_app:
-    resource: "@InfrastructureAppBundle/Resources/config/routing.yml"
+user_interface_app:
+    resource: "@UserInterfaceAppBundle/Resources/config/routing.yml"
     prefix:   /
-
 
