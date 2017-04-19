@@ -1,0 +1,53 @@
+version: "2"
+services:
+  nginx:
+    image: letsbonus/nginx:1.11
+    container_name: app.test
+    depends_on:
+      - fpm
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+      - ./etc/docker/development/nginx/app.conf:/etc/nginx/conf.d/default.conf
+      - ./var/logs/nginx:/var/log/nginx
+    working_dir: /app
+
+  fpm:
+    build: etc/docker/development/fpm
+    container_name: app_dev_fpm
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - "2222:22"
+    volumes:
+      - .:/app
+      - ~/.ssh:/root/.ssh
+    working_dir: /app
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+    tmpfs:
+      - /var/lib/mysql:rw
+
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+
+  elastic:
+    build: etc/docker/development/elastic
+    ports:
+      - "9200:9200"
+
+  redis:
+    image: redis:3.0
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
