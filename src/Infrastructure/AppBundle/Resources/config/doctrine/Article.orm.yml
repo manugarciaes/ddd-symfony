@@ -1,0 +1,11 @@
+Domain\App\Entity:
+    type: entity
+    table: null
+    repositoryClass: Infrastructure\AppBundle\Repository\ArticleRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

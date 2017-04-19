@@ -33,7 +33,8 @@ services:
       - MYSQL_DATABASE=symfony
     tmpfs:
       - /var/lib/mysql:rw
-
+    ports:
+      - "3306:3306"
   rabbit:
     image: rabbitmq:3-management
     ports:
